@@ -1,0 +1,18 @@
+{
+  "name": "invoices-api",
+  "version": "0.1.0",
+  "description": "Majan Invoices API",
+  "scripts": {
+    "test": "ava tests --verbose"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "aws-sdk": "^2.6.7",
+    "uuid": "^2.0.3"
+  },
+  "devDependencies": {
+    "ava": "^0.22.0",
+    "axios": "^0.16.2"
+  }
+}
