@@ -1,0 +1,21 @@
+{
+  "name": "audits-api",
+  "version": "0.1.0",
+  "description": "Audits API",
+  "scripts": {
+    "test": "ava tests --verbose"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "aws-sdk": "^2.6.7",
+    "uuid": "^2.0.3",
+    "winston": "^2.4.0"
+  },
+  "devDependencies": {
+    "ava": "^0.22.0",
+    "axios": "^0.16.2",
+    "ramda": "^0.25.0",
+    "random-string": "^0.2.0"
+  }
+}

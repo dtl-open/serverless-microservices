@@ -1,0 +1,81 @@
+service: audits
+
+provider:
+  name: aws
+  runtime: nodejs4.3
+  region: ap-southeast-2
+  stage: dev
+  profile: dtl-serverless
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:DescribeTable
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: "arn:aws:dynamodb:ap-southeast-2:*:*"
+
+functions:
+  create:
+    handler: handler.create
+    events:
+      - http:
+          path: audits
+          method: post
+          cors: true
+
+  readOne:
+    handler: handler.readOne
+    events:
+      - http:
+          path: audits/{id}
+          method: get
+          cors: true
+  search:
+    handler: handler.search
+    events:
+      - http:
+          path: audits/search
+          method: get
+          cors: true
+          request:
+            parameters:
+              querystrings:
+                operator: false
+
+resources:
+  Resources:
+    AuditsDynamoDbTable:
+      Type: 'AWS::DynamoDB::Table'
+      DeletionPolicy: Retain
+      Properties:
+        AttributeDefinitions:
+          -
+            AttributeName: id
+            AttributeType: S
+          -
+            AttributeName: performedUser
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: 'audits'
+        GlobalSecondaryIndexes:
+          -
+            IndexName: performedUser
+            KeySchema:
+              -
+                AttributeName: performedUser
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+            ProvisionedThroughput:
+              ReadCapacityUnits: 1
+              WriteCapacityUnits: 1
