@@ -16,7 +16,7 @@ test('Meter Reads CRUD Cycle', async t => {
 
     const createdMeterRead = await consumer.sendMeterRead(meterRead);
     console.log('Created meter read ', JSON.stringify(createdMeterRead));
-    t.not(createdMeterRead.id, undefined, 'Created audit event should have an ID');
+    t.not(createdMeterRead.updatedAt, undefined, 'Created audit event should have updated time.');
 
     const results = await consumer.searchMeterReadsByDate(meterRead.readingTime);
     t.not(results.length, 0);

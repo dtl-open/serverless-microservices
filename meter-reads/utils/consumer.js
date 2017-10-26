@@ -3,7 +3,7 @@
  */
 const axios = require('axios');
 
-const meterReadResource = 'https://imjg5vq5fi.execute-api.ap-southeast-2.amazonaws.com/dev/meterReads';
+const meterReadResource = 'https://fwpe69sge5.execute-api.ap-southeast-2.amazonaws.com/dev/meterReads';
 
 module.exports = {
 

@@ -11,8 +11,7 @@ module.exports = (event) => {
 
   const data = JSON.parse(event.body);
 
-  data.id = uuid.v1();
-  data.time = new Date().getTime();
+  data.updatedAt = new Date().getTime();
 
   return save(data);
 
