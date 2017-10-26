@@ -1,4 +1,4 @@
-service: audits
+service: meter-reads
 
 provider:
   name: aws
@@ -23,59 +23,44 @@ functions:
     handler: handler.create
     events:
       - http:
-          path: audits
+          path: meterReads
           method: post
           cors: true
 
-  readOne:
-    handler: handler.readOne
-    events:
-      - http:
-          path: audits/{id}
-          method: get
-          cors: true
   search:
     handler: handler.search
     events:
       - http:
-          path: audits/search
+          path: meterReads/search
           method: get
           cors: true
           request:
             parameters:
               querystrings:
-                operator: false
+                meterNumber: false
+                readingTime: true
 
 resources:
   Resources:
-    AuditsDynamoDbTable:
+    MeterReadsDynamoDbTable:
       Type: 'AWS::DynamoDB::Table'
       DeletionPolicy: Retain
       Properties:
         AttributeDefinitions:
           -
-            AttributeName: id
-            AttributeType: S
+            AttributeName: readingTime
+            AttributeType: N
           -
-            AttributeName: performedUser
+            AttributeName: meterNumber
             AttributeType: S
         KeySchema:
           -
-            AttributeName: id
+            AttributeName: readingTime
             KeyType: HASH
-        ProvisionedThroughput:
-          ReadCapacityUnits: 1
-          WriteCapacityUnits: 1
-        TableName: 'audits'
-        GlobalSecondaryIndexes:
           -
-            IndexName: performedUser
-            KeySchema:
-              -
-                AttributeName: performedUser
-                KeyType: HASH
-            Projection:
-              ProjectionType: ALL
-            ProvisionedThroughput:
-              ReadCapacityUnits: 1
-              WriteCapacityUnits: 1
+            AttributeName: meterNumber
+            KeyType: RANGE
+        ProvisionedThroughput:
+          ReadCapacityUnits: 10
+          WriteCapacityUnits: 100
+        TableName: 'meter-reads'

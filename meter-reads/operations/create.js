@@ -7,7 +7,7 @@ const c = require('../utils/constants');
 
 module.exports = (event) => {
 
-  console.info('Create Audit Event ', event);
+  console.info('Create Meter Read ', event.body);
 
   const data = JSON.parse(event.body);
 

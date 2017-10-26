@@ -33,7 +33,8 @@ const generateInvoices = (numberOfInvoices) => {
     const invoices = R.range(0, parseInt(numberOfInvoices,10)).map(i => newInvoice());
     // console.log(JSON.stringify(invoices));
     const promises = invoices.map(i => cosumer.createInvoice(i));
-    Promise.all(promises).then(values => logger.info('%d invoices are created !', values.length));
+    Promise.all(promises).then(values => logger.info('%d invoices are created !', values.length))
+        .catch(e => e.message);
 };
 
 if(require.main === module) {

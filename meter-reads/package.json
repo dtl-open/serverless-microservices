@@ -1,7 +1,7 @@
 {
-  "name": "audits-api",
+  "name": "meter-reads-api",
   "version": "0.1.0",
-  "description": "Audits API",
+  "description": "Meter Reads API",
   "scripts": {
     "test": "ava tests --verbose"
   },
@@ -9,12 +9,14 @@
   "license": "MIT",
   "dependencies": {
     "aws-sdk": "^2.6.7",
+    "lodash": "^4.17.4",
     "uuid": "^2.0.3",
     "winston": "^2.4.0"
   },
   "devDependencies": {
     "ava": "^0.22.0",
     "axios": "^0.16.2",
+    "csvdata": "^1.4.0",
     "ramda": "^0.25.0",
     "random-string": "^0.2.0"
   }

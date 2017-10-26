@@ -6,14 +6,13 @@ const c = require('../utils/constants');
 
 module.exports = (event) => {
 
-    console.info('Search Audit Event Query Parameters ', event.queryStringParameters);
+    console.info('Search Meter Read Query Parameters ', event.queryStringParameters);
 
     const params = {
         TableName: c.tableName,
-        IndexName: "performedUser",
-        KeyConditionExpression: 'performedUser = :performedUser',
+        KeyConditionExpression: 'readingTime = :readingTime',
         ExpressionAttributeValues: {
-            ':performedUser': event['queryStringParameters']['performedUser']
+            ':readingTime': +event['queryStringParameters']['readingTime']
         }
     };
 
